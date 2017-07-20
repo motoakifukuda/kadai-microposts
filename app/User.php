@@ -111,10 +111,8 @@ class User extends Model implements AuthenticatableContract,
     {
         // 既にお気に入りしているかの確認
         $exist = $this->is_favoriting($micropostId);
-        // 自分自身ではないかの確認
-        $its_me = $this->id == $micropostId;
         
-        if ($exist || $its_me) {
+        if ($exist) {
             // 既にお気に入りしていれば何もしない
             return false;
         } else {
@@ -128,10 +126,8 @@ class User extends Model implements AuthenticatableContract,
     {
         // 既にお気に入りしているかの確認
         $exist = $this->is_favoriting($micropostId);
-        // 自分自身ではないかの確認
-        $its_me = $this->id == $micropostId;
         
-        if ($exist && !$its_me) {
+        if ($exist) {
             // 既にお気に入りしていればお気に入りを外す
             $this->favoritings()->detach($micropostId);
             return true;
